@@ -111,7 +111,6 @@ public class GPU
         else { Console.WriteLine("Відеокарта не знаходиться в кошику"); }
     }
 
-
     public int YearsSinceRelease()
     {
         return DateTime.Now.Year - ReleaseDate.Year;
@@ -141,5 +140,28 @@ public class GPU
         {
             Console.WriteLine("Відеокарти не було в кошику");
         }
+    }
+
+    public GPU() : this("", 0, GPUArchitecture.Turing, 0, DateTime.MinValue, 0, 0)
+    {
+        Console.WriteLine("Використовується конструктор без параметрів.");
+    }
+
+    public GPU(string _modelName, GPUArchitecture _architecture, decimal _launchPrice) : this(_modelName, 0, _architecture, 0, DateTime.MinValue, 0, _launchPrice)
+    {
+        Console.WriteLine("Використовується конструктор з параметрами: назва, архітектура, ціна на релізі.");
+    }
+
+    public GPU(string _modelName, int _gpuClock, GPUArchitecture _architecture, int _memorySize, DateTime _releaseDate, short _memoryBusWidth, decimal _launchPrice)
+    {
+        Console.WriteLine("Використовується конструктор зі всіма параметрами.");
+
+        ModelName = _modelName;
+        GpuClock = _gpuClock;
+        Architecture = _architecture;
+        MemorySize = _memorySize;
+        ReleaseDate = _releaseDate;
+        MemoryBusWidth = _memoryBusWidth;
+        LaunchPrice = _launchPrice;
     }
 }
