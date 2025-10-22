@@ -250,56 +250,55 @@ while (true)
 
 static GPU AddGPU()
 {
-    GPU vc = null; 
-    try { vc = new GPU(); } 
-    catch (Exception ex) 
-    { Console.WriteLine(ex.ToString()); } 
+    GPU vc = null;
 
 
-    Console.Write("Введіть назву моделі: "); 
-    vc.ModelName = Console.ReadLine(); 
+    Console.Write("Введіть назву моделі: ");
+    string model = Console.ReadLine();
 
 
-    Console.Write("Введіть частоту GPU (1000–4000): "); 
-    vc.GpuClock = int.Parse(Console.ReadLine()); 
+    Console.Write("Введіть частоту GPU (1000–4000): ");
+    int frequency = int.Parse(Console.ReadLine());
 
 
-    GPUArchitecture architecture; 
-    Console.WriteLine("Виберіть архітектуру: "); 
-    foreach (var arch in Enum.GetValues(typeof(GPUArchitecture))) 
-        Console.WriteLine($"- {arch}"); Console.Write("Ваш вибір: ");
-
-    if (Enum.TryParse<GPUArchitecture>(Console.ReadLine(), true, out architecture))
-    {
-        vc.Architecture = architecture;
-    }
-    else
+    GPUArchitecture architecture;
+    Console.WriteLine("Виберіть архітектуру: ");
+    foreach (var arch in Enum.GetValues(typeof(GPUArchitecture)))
+        Console.WriteLine($"- {arch}");
+    Console.Write("Ваш вибір: ");
+    if (!Enum.TryParse<GPUArchitecture>(Console.ReadLine(), true, out architecture))
     {
         throw new ArgumentException("Архітектура не коректна!");
-    } 
-    
-
-    Console.Write("Введіть обсяг пам'яті (1–32 ГБ): "); 
-    vc.MemorySize = int.Parse(Console.ReadLine()); 
-    
-    DateTime releaseDate; Console.Write("Введіть дату випуску: ");
-    if (DateTime.TryParse(Console.ReadLine(), out releaseDate))
-    {
-        vc.ReleaseDate = releaseDate;
     }
-    else
+
+
+    Console.Write("Введіть обсяг пам'яті (1–32 ГБ): ");
+    int memory = int.Parse(Console.ReadLine());
+
+
+    DateTime release;
+    Console.Write("Введіть дату випуску: ");
+    if (!DateTime.TryParse(Console.ReadLine(), out release))
     {
         throw new ArgumentException("Дата не коректна!");
-    } 
+    }
 
 
-    Console.Write("Введіть розрядність шини (128–2048 біт): "); 
-    vc.MemoryBusWidth = short.Parse(Console.ReadLine()); 
-    
+    Console.Write("Введіть розрядність шини (128–2048 біт): ");
+    short bus = short.Parse(Console.ReadLine());
 
-    Console.Write("Введіть ціну на релізі (>0$): "); 
-    vc.LaunchPrice = decimal.Parse(Console.ReadLine()); 
-    
-    
+
+    Console.Write("Введіть ціну на релізі (>0$): ");
+    decimal price = decimal.Parse(Console.ReadLine());
+
+    try
+    {
+        vc = new GPU(model, frequency, architecture, memory, release, bus, price);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.ToString());
+    }
+
     return vc;
 }
