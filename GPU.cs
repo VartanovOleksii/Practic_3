@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using System.Xml;
 
 public class GPU
 {
@@ -9,6 +10,13 @@ public class GPU
     private DateTime _releaseDate;
     private short _memoryBusWidth;
     private decimal _launchPrice;
+
+    public const string DefName = "DefaultName";
+    public const int DefClock = 1000;
+    public const GPUArchitecture DefArchitecture = GPUArchitecture.Turing;
+    public const int DefMemory = 1;
+    public const short DefBus = 128;
+    public const decimal DefPrice = 0.01m;
 
     public bool InBasket { get; private set; } = false;
 
@@ -142,12 +150,12 @@ public class GPU
         }
     }
 
-    public GPU() : this("", 0, GPUArchitecture.Turing, 0, DateTime.MinValue, 0, 0)
+    public GPU() : this(DefName, DefClock, DefArchitecture, DefMemory, DateTime.MinValue, DefBus, DefPrice)
     {
         Console.WriteLine("Використовується конструктор без параметрів.");
     }
 
-    public GPU(string _modelName, GPUArchitecture _architecture, decimal _launchPrice) : this(_modelName, 0, _architecture, 0, DateTime.MinValue, 0, _launchPrice)
+    public GPU(string _modelName, GPUArchitecture _architecture, decimal _launchPrice) : this(_modelName, DefClock, _architecture, DefMemory, DateTime.MinValue, DefBus, _launchPrice)
     {
         Console.WriteLine("Використовується конструктор з параметрами: назва, архітектура, ціна на релізі.");
     }

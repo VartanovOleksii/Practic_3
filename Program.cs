@@ -291,6 +291,7 @@ static GPU AddGPU()
     Console.Write("Введіть ціну на релізі (>0$): ");
     decimal price = decimal.Parse(Console.ReadLine());
 
+    //проверка на правильность происходит только после ввода всех переменных
     try
     {
         vc = new GPU(model, frequency, architecture, memory, release, bus, price);
