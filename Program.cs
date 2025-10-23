@@ -248,6 +248,7 @@ while (true)
     }
 }
 
+/*
 static GPU AddGPU()
 {
     GPU vc = null;
@@ -300,6 +301,68 @@ static GPU AddGPU()
     {
         Console.WriteLine(ex.ToString());
     }
+
+    if (vc == null)
+    {
+        Console.WriteLine("Об'єкт не було створено");
+        vc = new GPU();
+    }
+
+    return vc;
+}
+*/
+
+static GPU AddGPU()
+{
+    GPU vc = new GPU();
+
+
+    Console.Write("Введіть назву моделі: ");
+    vc.ModelName = Console.ReadLine();
+
+
+    Console.Write("Введіть частоту GPU (1000–4000): ");
+    vc.GpuClock = int.Parse(Console.ReadLine());
+
+
+    GPUArchitecture architecture;
+    Console.WriteLine("Виберіть архітектуру: ");
+    foreach (var arch in Enum.GetValues(typeof(GPUArchitecture)))
+        Console.WriteLine($"- {arch}");
+    Console.Write("Ваш вибір: ");
+    if (Enum.TryParse<GPUArchitecture>(Console.ReadLine(), true, out architecture))
+    {
+        vc.Architecture = architecture;
+    }
+    else
+    {
+        throw new ArgumentException("Архітектура не коректна!");
+    }
+
+
+    Console.Write("Введіть обсяг пам'яті (1–32 ГБ): ");
+    vc.MemorySize = int.Parse(Console.ReadLine());
+
+
+    DateTime releaseDate;
+    Console.Write("Введіть дату випуску: ");
+    if (DateTime.TryParse(Console.ReadLine(), out releaseDate))
+    {
+        vc.ReleaseDate = releaseDate;
+    }
+    else
+    {
+        throw new ArgumentException("Дата не коректна!");
+    }
+
+
+    Console.Write("Введіть розрядність шини (128–2048 біт): ");
+    vc.MemoryBusWidth = short.Parse(Console.ReadLine());
+
+
+    Console.Write("Введіть ціну на релізі (>0$): ");
+    vc.LaunchPrice = decimal.Parse(Console.ReadLine());
+
 
     return vc;
 }

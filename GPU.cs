@@ -11,6 +11,8 @@ public class GPU
     private short _memoryBusWidth;
     private decimal _launchPrice;
 
+    private bool constructorChecker = false;
+
     public const string DefName = "DefaultName";
     public const int DefClock = 1000;
     public const GPUArchitecture DefArchitecture = GPUArchitecture.Turing;
@@ -18,7 +20,7 @@ public class GPU
     public const short DefBus = 128;
     public const decimal DefPrice = 0.01m;
 
-    public bool InBasket { get; private set; } = false;
+    public bool InBasket { get; private set; } = true;
 
     public string ModelName
     {
@@ -152,17 +154,22 @@ public class GPU
 
     public GPU() : this(DefName, DefClock, DefArchitecture, DefMemory, DateTime.MinValue, DefBus, DefPrice)
     {
+        constructorChecker = false;
         Console.WriteLine("Використовується конструктор без параметрів.");
     }
 
     public GPU(string _modelName, GPUArchitecture _architecture, decimal _launchPrice) : this(_modelName, DefClock, _architecture, DefMemory, DateTime.MinValue, DefBus, _launchPrice)
     {
+        constructorChecker = false;
         Console.WriteLine("Використовується конструктор з параметрами: назва, архітектура, ціна на релізі.");
     }
 
     public GPU(string _modelName, int _gpuClock, GPUArchitecture _architecture, int _memorySize, DateTime _releaseDate, short _memoryBusWidth, decimal _launchPrice)
     {
-        Console.WriteLine("Використовується конструктор зі всіма параметрами.");
+        if (constructorChecker)
+        {
+            Console.WriteLine("Використовується конструктор зі всіма параметрами.");
+        }
 
         ModelName = _modelName;
         GpuClock = _gpuClock;
