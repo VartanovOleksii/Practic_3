@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System.Xml;
 
-public class GPU
+public class Gpu
 {
     private string _modelName;
     private int _gpuClock;
@@ -10,8 +10,6 @@ public class GPU
     private DateTime _releaseDate;
     private short _memoryBusWidth;
     private decimal _launchPrice;
-
-    private bool constructorChecker = false;
 
     public const string DefName = "DefaultName";
     public const int DefClock = 1000;
@@ -152,31 +150,27 @@ public class GPU
         }
     }
 
-    public GPU() : this(DefName, DefClock, DefArchitecture, DefMemory, DateTime.MinValue, DefBus, DefPrice)
+    public Gpu() : this(DefName, DefClock, DefArchitecture, DefMemory, DateTime.MinValue, DefBus, DefPrice)
     {
-        constructorChecker = false;
         Console.WriteLine("Використовується конструктор без параметрів.");
     }
 
-    public GPU(string _modelName, GPUArchitecture _architecture, decimal _launchPrice) : this(_modelName, DefClock, _architecture, DefMemory, DateTime.MinValue, DefBus, _launchPrice)
+    public Gpu(string modelName, GPUArchitecture architecture, decimal launchPrice) : this(modelName, DefClock, architecture, DefMemory, DateTime.MinValue, DefBus, launchPrice)
     {
-        constructorChecker = false;
         Console.WriteLine("Використовується конструктор з параметрами: назва, архітектура, ціна на релізі.");
     }
 
-    public GPU(string _modelName, int _gpuClock, GPUArchitecture _architecture, int _memorySize, DateTime _releaseDate, short _memoryBusWidth, decimal _launchPrice)
+    public Gpu(string modelName, int gpuClock, GPUArchitecture architecture, int memorySize, DateTime releaseDate, short memoryBusWidth, decimal launchPrice)
     {
-        if (constructorChecker)
-        {
-            Console.WriteLine("Використовується конструктор зі всіма параметрами.");
-        }
+        Console.WriteLine("Використовується конструктор зі всіма параметрами.");
+         
 
-        ModelName = _modelName;
-        GpuClock = _gpuClock;
-        Architecture = _architecture;
-        MemorySize = _memorySize;
-        ReleaseDate = _releaseDate;
-        MemoryBusWidth = _memoryBusWidth;
-        LaunchPrice = _launchPrice;
+        ModelName = modelName;
+        GpuClock = gpuClock;
+        Architecture = architecture;
+        MemorySize = memorySize;
+        ReleaseDate = releaseDate;
+        MemoryBusWidth = memoryBusWidth;
+        LaunchPrice = launchPrice;
     }
 }

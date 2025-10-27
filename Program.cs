@@ -1,4 +1,9 @@
-﻿System.Console.OutputEncoding = System.Text.Encoding.Unicode;
+﻿using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Runtime.InteropServices;
+
+System.Console.OutputEncoding = System.Text.Encoding.Unicode;
 
 int maxCount = 0;
 while (true)
@@ -11,7 +16,7 @@ while (true)
     Console.WriteLine("Помилка: введіть додатне число!");
 }
 
-List<GPU> gpus = new List<GPU>(maxCount);
+List<Gpu> gpus = new List<Gpu>(maxCount);
 
 start_of_loop:
 while (true)
@@ -54,8 +59,8 @@ while (true)
                     case "1":
                         try
                         {
-                            GPU card = AddGPU();
-                            gpus.Add(card);
+                            Gpu vcard = AddGPU();
+                            gpus.Add(vcard);
                             Console.WriteLine("Відеокарта успішно додана!");
                         }
                         catch (Exception ex)
@@ -65,7 +70,70 @@ while (true)
                         break;
 
                     case "2":
-                        
+                        Random seed = new Random();
+                        int constructor = seed.Next(3);
+
+                        Gpu card = null;
+
+                        switch (constructor)
+                        {
+                            case 0:
+                                try
+                                {
+                                    card = new Gpu();
+                                    gpus.Add(card);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.ToString());
+                                }
+
+                                if (card == null)
+                                {
+                                    Console.WriteLine("Об'єкт не було створено");
+                                }
+
+                                break;
+
+                            case 1:
+                                try
+                                {
+                                    card = new Gpu("GeForce RTX 5060 Ti", GPUArchitecture.Blackwell, 429.99m);
+                                    gpus.Add(card);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.ToString());
+                                }
+
+                                if (card == null)
+                                {
+                                    Console.WriteLine("Об'єкт не було створено");
+                                }
+
+                                break;
+
+                            case 2:
+                                try
+                                {
+                                    var rDate = new DateTime(2025, 04, 16);
+                                    card = new Gpu("GeForce RTX 5060 Ti", 2602, GPUArchitecture.Blackwell, 16, rDate, 128, 429.99m);
+                                    gpus.Add(card);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.ToString());
+                                }
+
+                                if (card == null)
+                                {
+                                    Console.WriteLine("Об'єкт не було створено");
+                                }
+
+                                break;
+                        }
+
+                        break;
 
                     case "0":
                         goto start_of_loop;
@@ -108,7 +176,7 @@ while (true)
                 Console.WriteLine("0 - Назад");
                 Console.Write("Ваш вибір -> ");
 
-                List<GPU> findresults = new List<GPU>();
+                List<Gpu> findresults = new List<Gpu>();
 
                 string findchoice = Console.ReadLine();
                 Console.WriteLine();
@@ -151,7 +219,7 @@ while (true)
 
                 if (findresults.Count > 0)
                 {
-                    foreach (GPU res in findresults)
+                    foreach (Gpu res in findresults)
                     {
                         res.PrintInfo();
                         Console.WriteLine();
@@ -343,9 +411,9 @@ static GPU AddGPU()
 }
 */
 
-static GPU AddGPU()
+static Gpu AddGPU()
 {
-    GPU vc = new GPU();
+    Gpu vc = new Gpu();
 
 
     Console.Write("Введіть назву моделі: ");
