@@ -3,6 +3,7 @@ using System.Xml;
 
 public class Gpu
 {
+    //Приватні змінні
     private string _modelName;
     private int _gpuClock;
     private GPUArchitecture _architecture;
@@ -11,6 +12,7 @@ public class Gpu
     private short _memoryBusWidth;
     private decimal _launchPrice;
 
+    //Публічні дефолтні значення
     public const string DefName = "DefaultName";
     public const int DefClock = 1000;
     public const GPUArchitecture DefArchitecture = GPUArchitecture.Turing;
@@ -18,6 +20,8 @@ public class Gpu
     public const short DefBus = 128;
     public const decimal DefPrice = 0.01m;
 
+
+    //Методи
     public bool InBasket { get; private set; } = true;
 
     public string ModelName
@@ -150,6 +154,7 @@ public class Gpu
         }
     }
 
+    //Конструктори
     public Gpu() : this(DefName, DefClock, DefArchitecture, DefMemory, DateTime.MinValue, DefBus, DefPrice)
     {
         Console.WriteLine("Використовується конструктор без параметрів.");
