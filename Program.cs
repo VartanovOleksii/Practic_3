@@ -32,23 +32,54 @@ while (true)
     {
         //Додати об'єкт
         case "1":
-            if (gpus.Count >= maxCount)
+            while (true)
             {
-                Console.WriteLine("Помилка: досягнута максимальна кількість об'єктів!");
-                break;
+                if (gpus.Count >= maxCount)
+                {
+                    Console.WriteLine("Досягнута максимальна кількість об'єктів!");
+                    break;
+                }
+
+                Console.WriteLine("\n==== МЕНЮ ====");
+                Console.WriteLine("1 - Задано користувачем");
+                Console.WriteLine("2 - Тест конструкторів");
+                Console.WriteLine("0 - Назад");
+                Console.Write("Ваш вибір -> ");
+
+                string selectchoice = Console.ReadLine();
+                Console.WriteLine();
+
+                switch (selectchoice)
+                {
+                    case "1":
+                        try
+                        {
+                            GPU card = AddGPU();
+                            gpus.Add(card);
+                            Console.WriteLine("Відеокарта успішно додана!");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Помилка: {ex.Message}");
+                        }
+                        break;
+
+                    case "2":
+                        
+
+                    case "0":
+                        goto start_of_loop;
+                        break;
+
+                    default:
+                        Console.WriteLine("Неправильний вибір, спробуйте знову.");
+                        break;
+                }
             }
 
-            try
-            {
-                GPU card = AddGPU();
-                gpus.Add(card);
-                Console.WriteLine("Відеокарта успішно додана!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Помилка: {ex.Message}");
-            }
             break;
+
+            
 
         //Переглянути додані об'єкти
         case "2":
