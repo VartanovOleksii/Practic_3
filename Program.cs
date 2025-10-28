@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.JavaScript;
 
 System.Console.OutputEncoding = System.Text.Encoding.Unicode;
 
@@ -147,8 +148,6 @@ while (true)
 
             break;
 
-            
-
         //Переглянути додані об'єкти
         case "2":
             if (gpus.Count == 0)
@@ -244,8 +243,9 @@ while (true)
                     Console.WriteLine("\n==== МЕНЮ ====");
                     Console.WriteLine("1 - Переглянути характеристики");
                     Console.WriteLine("2 - Кількість років з релізу");
-                    Console.WriteLine("3 - Додати до кошику");
-                    Console.WriteLine("4 - Видалити з кошику");
+                    Console.WriteLine("3 - Кількість років від релізу до заданої дати");
+                    Console.WriteLine("4 - Додати до кошику");
+                    Console.WriteLine("5 - Видалити з кошику");
                     Console.WriteLine("0 - Назад");
                     Console.Write("Ваш вибір -> ");
 
@@ -259,14 +259,41 @@ while (true)
                             break;
 
                         case "2":
-                            gpus[0].YearsSinceRelease();
+                            Console.WriteLine($"Пройшло {gpus[0].YearsSinceRelease()} років");
                             break;
 
                         case "3":
-                            gpus[0].AddToBasket();
+                            Console.Write("Введіть дату: ");
+                            var selectedDate = new DateTime();
+
+                            try
+                            {
+                                if (DateTime.TryParse(Console.ReadLine(), out selectedDate))
+                                {
+                                    Console.WriteLine($"Пройшло {gpus[0].YearsSinceRelease(selectedDate)} років");
+                                }
+                                else
+                                {
+                                    throw new ArgumentException("Дата не коректна!");
+                                }
+                            }
+                            catch (ArgumentException)
+                            {
+                                Console.WriteLine("Дата не коректна!");
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message); 
+                            }
+
+
                             break;
 
                         case "4":
+                            gpus[0].AddToBasket();
+                            break;
+
+                        case "5":
                             gpus[0].DeleteFromBasket();
                             break;
 

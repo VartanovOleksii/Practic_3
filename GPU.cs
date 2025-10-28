@@ -128,6 +128,11 @@ public class Gpu
         return DateTime.Now.Year - ReleaseDate.Year;
     }
 
+    public int YearsSinceRelease(DateTime selectedDate)
+    {
+        return selectedDate.Year - ReleaseDate.Year;
+    }
+
     public void AddToBasket()
     {
         if (!InBasket)
